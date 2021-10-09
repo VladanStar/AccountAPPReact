@@ -4,6 +4,7 @@ import Header from "./components/Header/Header";
 import {Route, BrowserRouter } from "react-router-dom";
 import AccountsTable from "./components/AccountsTable/AccountsTable";
 import AddAccount from "./components/AddAccount/AddAccount";
+import EditTable from "./components/EditTable/EditTable";
 
 class App extends Component {
   state = {
@@ -18,6 +19,12 @@ this.setState({
   accounts:[...this.state.accounts,acc]
 })
   }
+
+  deleteAccount=(id)=>{
+   const accountsCopy = [...this.state.accounts];
+   const newCopyAccounts = accountsCopy.filter(account => account.id !== id)
+    this.setState({accounts:newCopyAccounts})
+  }
   render() {
     return (
       <BrowserRouter>
@@ -27,6 +34,9 @@ this.setState({
         </Route>
         <Route path="/add">
           <AddAccount addNewAccountToState= {this.addNewAccountToState} />
+        </Route>
+        <Route path="/edit">
+          <EditTable accounts= {this.state.accounts} deleteAccount={this.deleteAccount}/>
         </Route>
 
       </BrowserRouter>
