@@ -4,9 +4,6 @@ import {withRouter} from "react-router-dom";
 function EditAccount (props) {
 
   const [account, setAccount] = useState(props.accounts.filter(acc => acc.id == props.match.params.id)[0])
- 
-
-  
    const editAccount =()=>{
         props.editAccount(account);
         props.history.push("/"); 
