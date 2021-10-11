@@ -1,54 +1,37 @@
-import React, { Component } from "react";
+import React, {useState} from "react";
 import {withRouter} from "react-router-dom";
 
-class EditAccount extends Component {
+function EditAccount (props) {
 
-    state = {
-        account: {
-            id:"",
-            name:"",
-            lastName:"",
-            phone:"",
-            email:""
-        }
-    }
-    componentDidMount(){
-        //account
-    const accountForEdit= this.props.accounts.filter(acc => acc.id == this.props.match.params.id)[0];
-   this.setState({account:accountForEdit});
+  const [account, setAccount] = useState(props.accounts.filter(acc => acc.id == props.match.params.id)[0])
+ 
+
+  
+   const editAccount =()=>{
+        props.editAccount(account);
+        props.history.push("/"); 
     }
 
-    changeAccount = (event)=>{
-        const copyOfAccount = {...this.state.account};
-        copyOfAccount[event.target.id] = event.target.value;
-        this.setState({account:copyOfAccount});
-
-    }
-    editAccount =()=>{
-        this.props.editAccount(this.state.account);
-        this.props.history.push("/"); 
-    }
-  render() {
     return (
       <div className="container">
         <div className="col-10 offset-1">
           <h2 className="display-4 m-4">Edit Account</h2>
           <div className="row">
             <div className="col-10 offset-1">
-              <input onChange={this.changeAccount} type="text" id="name" className="form-control" value={this.state.account.name} />
+              <input onChange={(e) =>{setAccount({...account, name:e.target.value}) }} type="text" id="name" className="form-control" value={account.name} />
               <br />
-              <input onChange={this.changeAccount} type="text" id="lastName" className="form-control" value={this.state.account.lastName} />
+              <input onChange={(e) =>{setAccount({...account, lastName:e.target.value}) }} type="text" id="lastName" className="form-control" value={account.lastName} />
               <br />
-              <input onChange={this.changeAccount} type="text" id="phone" className="form-control" value={this.state.account.phone} />
+              <input onChange={(e) =>{setAccount({...account, phone:e.target.value}) }} type="text" id="phone" className="form-control" value={account.phone} />
               <br />
-              <input onChange={this.changeAccount} type="text" id="email" className="form-control" value={this.state.account.email} />
+              <input onChange={(e) =>{setAccount({...account, email:e.target.value}) }} type="text" id="email" className="form-control" value={account.email} />
               <br />
-              <button onClick={this.editAccount} className="form-control btn btn-info">Edit</button>
+              <button onClick={editAccount} className="form-control btn btn-info">Edit</button>
             </div>
           </div>
         </div>
       </div>
     );
-  }
+  
 }
 export default withRouter(EditAccount);
