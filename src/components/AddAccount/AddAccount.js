@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { withRouter } from "react-router-dom";
 
 
 
 function AddAccount(props) {
+
 
   const [newAccount, setNewAccount] = useState({
     id: "",
@@ -12,6 +13,10 @@ function AddAccount(props) {
     phone: "phone",
     email: "",
   });
+  const idInput = useRef();
+  useEffect(()=>{
+    idInput.current.focus();
+  })
 
   const addNewAccount = () => {
     props.addNewAccountToState(newAccount);
@@ -31,6 +36,7 @@ function AddAccount(props) {
                   setNewAccount({ ...newAccount,id:e.target.value });
                 }}
                 type="text"
+                ref={idInput}
                 placeholder="id"
                 className="form-control"
               />
