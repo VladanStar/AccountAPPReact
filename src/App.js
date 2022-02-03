@@ -36,7 +36,8 @@ function App()  {
       email: "brankoriznic@gmail.com",
     },
   ],)
-
+// vladan
+  console.log('vladan')
   const deleteAccount = (id) => {
     
     const newCopyAccounts = accounts.filter((account) => account.id !== id);
